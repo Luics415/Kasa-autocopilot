@@ -14,10 +14,12 @@ export interface VehicleProfile {
   model: string;
   year: number;
   engine: string;
-  powertrainType: "ICE" | "HEV" | "PHEV" | "BEV" | "DIESEL";
+  powertrainType: "GASOLINA" | "HIBRIDO" | "ELECTRICO" | "DIESEL";
   mileageKm: number;
   workshopBay: string;
   commonDTCs: string[];
+  imageUrl?: string;
+  popularInMexico?: boolean;
 }
 
 export interface DiagnosticStep {
@@ -75,10 +77,12 @@ export interface DiagnosticResponse {
   finops: {
     inputTokens: number;
     outputTokens: number;
-    estimatedCostUsd: number;
+    estimatedCostMxn: number;
     latencyMs: number;
     hoursLaborSaved: number;
-    warrantyDollarsSaved: number;
+    laborCostSavedMxn: number;
+    partsLossAvoidedMxn: number;
+    totalSavingsMxn: number;
   };
   bedrockModelUsed: string;
   mode: "LIVE_AWS_BEDROCK" | "LOCAL_RAG_SIMULATION";
@@ -87,8 +91,8 @@ export interface DiagnosticResponse {
 export interface FinOpsSummary {
   totalQueries: number;
   totalTokensProcessed: number;
-  accumulatedCostUsd: number;
+  accumulatedCostMxn: number;
   accumulatedHoursSaved: number;
-  accumulatedWarrantySaved: number;
+  accumulatedSavingsMxn: number;
   avgLatencyMs: number;
 }

@@ -9,65 +9,36 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ground: "#080a0f",
-        surface: {
-          subtle: "#0d111a",
-          raised: "#131824",
-          inset: "#06080d",
-          hover: "#192132",
-          border: "#1d263b",
-          "border-strong": "#2b3854",
+        // Nuevo esquema automotriz industrial: Modern Diagnostic Hub
+        workshop: {
+          bg: "#0a0f1d",       // Azul grafito profundo
+          card: "#131c31",     // Tarjeta sólida contrastada
+          cardHover: "#1c2844",
+          border: "#233356",   // Bordes visibles y definidos
+          borderActive: "#38bdf8",
+          dark: "#060913"
+        },
+        turbo: {
+          blue: "#0284c7",
+          cyan: "#38bdf8",
+          glow: "rgba(56, 189, 248, 0.2)",
+        },
+        mechanic: {
+          amber: "#f59e0b",
+          orange: "#ea580c",
+          red: "#ef4444",
+          green: "#10b981",
         },
         bedrock: {
-          DEFAULT: "#8b5cf6",
-          light: "#a78bfa",
-          dark: "#6d28d9",
-          glow: "rgba(139, 92, 246, 0.15)",
-        },
-        aws: {
-          orange: "#ff9900",
-          squid: "#232f3e",
-          blue: "#0073bb",
-          teal: "#00a4a6",
-          dark: "#141f2e",
-        },
-        telemetry: {
-          cyan: "#06b6d4",
-          emerald: "#10b981",
-          amber: "#f59e0b",
-          rose: "#f43f5e",
-          slate: "#64748b",
-        },
-        hv: {
-          warning: "#ffaa00",
-          badge: "#451a03",
-          border: "#b45309",
+          purple: "#9333ea",
+          violet: "#a855f7",
+          badge: "#581c87",
         }
       },
       fontFamily: {
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
+        mono: ["JetBrains Mono", "ui-monospace", "Consolas", "monospace"],
       },
-      letterSpacing: {
-        tightest: "-0.04em",
-        tighter: "-0.025em",
-        wideCode: "0.08em",
-      },
-      animation: {
-        "pulse-subtle": "pulseSubtle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "scanner-line": "scannerLine 3s ease-in-out infinite",
-      },
-      keyframes: {
-        pulseSubtle: {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.6" },
-        },
-        scannerLine: {
-          "0%": { transform: "translateY(0%)" },
-          "50%": { transform: "translateY(100%)" },
-          "100%": { transform: "translateY(0%)" },
-        }
-      }
     },
   },
   plugins: [],

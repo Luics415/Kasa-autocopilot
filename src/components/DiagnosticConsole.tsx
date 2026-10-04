@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { VehicleProfile } from "@/lib/types";
-import { Wrench, Sparkles, Send, Loader2, AlertCircle, FileSearch, CheckCircle2, ChevronRight } from "lucide-react";
+import { Wrench, Sparkles, Send, Loader2, Gauge, FileSearch, Zap, AlertTriangle } from "lucide-react";
 
 interface DiagnosticConsoleProps {
   selectedVehicle: VehicleProfile;
@@ -19,18 +19,30 @@ export const DiagnosticConsole: React.FC<DiagnosticConsoleProps> = ({
 }) => {
   const [selectedDtc, setSelectedDtc] = useState<string>(selectedVehicle.commonDTCs[0] || "P0301");
   const [customQuery, setCustomQuery] = useState<string>(
-    `Presenta el árbol de diagnóstico paso a paso para el código ${selectedVehicle.commonDTCs[0] || "P0301"}, incluyendo valores de resistencia esperados, torques de apriete y precauciones.`
+    `Dame el procedimiento paso a paso para diagnosticar el código ${selectedVehicle.commonDTCs[0] || "P0301"}, qué valores medir con el multímetro, los pares de apriete en N·m y las advertencias de seguridad de agencia.`
   );
 
   const handleDtcChange = (dtc: string) => {
     setSelectedDtc(dtc);
     setCustomQuery(
-      `Presenta el árbol de diagnóstico paso a paso para el código ${dtc}, incluyendo valores de resistencia esperados, torques de apriete y precauciones.`
+      `Dame el procedimiento paso a paso para diagnosticar el código ${dtc}, qué valores medir con el multímetro, los pares de apriete en N·m y las advertencias de seguridad de agencia.`
     );
   };
 
-  const handleQuickPrompt = (promptText: string) => {
-    setCustomQuery(promptText);
+  const handlePreset = (type: "PASOS" | "TORQUES" | "PINES") => {
+    if (type === "PASOS") {
+      setCustomQuery(
+        `Procedimiento guiado de diagnóstico para ${selectedDtc} con valores de resistencia en Ohms y voltajes nominales de sensor.`
+      );
+    } else if (type === "TORQUES") {
+      setCustomQuery(
+        `Tabla de pares de apriete (Torques exactos en N·m y lb-ft) para todos los tornillos, bujías o componentes desmontados para solucionar ${selectedDtc}.`
+      );
+    } else {
+      setCustomQuery(
+        `Diagrama de pines (pinout), voltajes de referencia de 5V/12V y tierras de computadora para sensores involucrados en ${selectedDtc}.`
+      );
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -40,38 +52,36 @@ export const DiagnosticConsole: React.FC<DiagnosticConsoleProps> = ({
   };
 
   return (
-    <div className="bg-surface-raised border border-surface-border rounded-xl p-5 shadow-md">
-      {/* Vehicle Context Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-surface-border">
+    <section className="bg-workshop-card border-2 border-workshop-border rounded-2xl p-5 shadow-xl relative overflow-hidden">
+      {/* Barra de paso y vehículo activo */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 pb-4 mb-4 border-b border-workshop-border">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
-              Vehículo en Diagnóstico:
+            <span className="w-6 h-6 rounded-full bg-turbo-blue text-white font-extrabold text-xs flex items-center justify-center font-mono">
+              2
             </span>
-            <span className="font-bold text-white text-base">
-              {selectedVehicle.year} {selectedVehicle.make} {selectedVehicle.model}
-            </span>
+            <h2 className="text-sm uppercase font-bold tracking-wider text-white">
+              Paso 2: Código de Falla (DTC) y Pregunta al Asistente
+            </h2>
           </div>
-          <div className="text-xs text-slate-400 font-mono mt-0.5 flex items-center gap-3">
-            <span>VIN: <strong className="text-slate-300">{selectedVehicle.vin}</strong></span>
-            <span>Motor: <strong className="text-slate-300">{selectedVehicle.engine}</strong></span>
-            <span>Odómetro: <strong className="text-slate-300">{selectedVehicle.mileageKm.toLocaleString()} km</strong></span>
-          </div>
+          <p className="text-xs text-slate-300 mt-0.5 ml-8">
+            Consultando manual oficial de <strong className="text-white">{selectedVehicle.make} {selectedVehicle.model} ({selectedVehicle.engine})</strong>
+          </p>
         </div>
 
-        {/* DTC Selector Badges */}
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-slate-400">Códigos DTC:</span>
-          <div className="flex gap-1.5">
+        {/* Selector de códigos DTC con botones grandes */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-xs font-bold text-slate-300 font-mono">Código Escaneado:</span>
+          <div className="flex gap-2">
             {selectedVehicle.commonDTCs.map((dtc) => (
               <button
                 key={dtc}
                 type="button"
                 onClick={() => handleDtcChange(dtc)}
-                className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-all ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-extrabold transition-all ${
                   selectedDtc === dtc
-                    ? "bg-red-500 text-white shadow-sm ring-2 ring-red-400/50"
-                    : "bg-surface-subtle hover:bg-surface-hover text-red-300 border border-red-900/60"
+                    ? "bg-mechanic-red text-white shadow-lg ring-2 ring-red-400 scale-105"
+                    : "bg-workshop-dark text-red-300 border border-red-900/60 hover:bg-workshop-cardHover"
                 }`}
               >
                 {dtc}
@@ -81,96 +91,105 @@ export const DiagnosticConsole: React.FC<DiagnosticConsoleProps> = ({
         </div>
       </div>
 
-      {/* Quick Prompts */}
-      <div className="mb-3.5 flex flex-wrap items-center gap-2">
-        <span className="text-[11px] font-mono text-slate-400">Consultas Rápidas:</span>
-        <button
-          type="button"
-          onClick={() =>
-            handleQuickPrompt(
-              `Árbol de diagnóstico paso a paso para ${selectedDtc} con pruebas de componentes y valores nominales.`
-            )
-          }
-          className="text-xs px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-hover text-slate-300 border border-surface-border transition-colors flex items-center gap-1"
-        >
-          <Wrench className="w-3 h-3 text-cyan-400" />
-          Árbol de Pruebas
-        </button>
-        <button
-          type="button"
-          onClick={() =>
-            handleQuickPrompt(
-              `Pares de apriete (Torques en Nm y lb-ft) y especificaciones de fluidos para componentes involucrados en ${selectedDtc}.`
-            )
-          }
-          className="text-xs px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-hover text-slate-300 border border-surface-border transition-colors flex items-center gap-1"
-        >
-          <Sparkles className="w-3 h-3 text-amber-400" />
-          Torques & Fluidos
-        </button>
-        <button
-          type="button"
-          onClick={() =>
-            handleQuickPrompt(
-              `Diagrama de pines (pinout), voltajes de referencia y masa para los sensores relacionados a ${selectedDtc}.`
-            )
-          }
-          className="text-xs px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-hover text-slate-300 border border-surface-border transition-colors flex items-center gap-1"
-        >
-          <FileSearch className="w-3 h-3 text-purple-400" />
-          Pines & Voltajes
-        </button>
+      {/* Botones de acción rápida estilo tablet automotriz */}
+      <div className="mb-4">
+        <span className="text-xs font-bold text-slate-400 block mb-2 font-mono">
+          Accesos directos de taller:
+        </span>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <button
+            type="button"
+            onClick={() => handlePreset("PASOS")}
+            className="p-2.5 rounded-xl bg-workshop-dark hover:bg-workshop-cardHover border border-workshop-border text-left transition-all flex items-center gap-2.5 group"
+          >
+            <div className="p-2 rounded-lg bg-turbo-blue/20 text-turbo-cyan group-hover:bg-turbo-blue group-hover:text-white transition-colors">
+              <Wrench className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white">Pruebas con Multímetro</div>
+              <div className="text-[11px] text-slate-400">Paso a paso y valores esperados</div>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handlePreset("TORQUES")}
+            className="p-2.5 rounded-xl bg-workshop-dark hover:bg-workshop-cardHover border border-workshop-border text-left transition-all flex items-center gap-2.5 group"
+          >
+            <div className="p-2 rounded-lg bg-mechanic-amber/20 text-mechanic-amber group-hover:bg-mechanic-amber group-hover:text-black transition-colors">
+              <Gauge className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white">Torques de Apriete (N·m)</div>
+              <div className="text-[11px] text-slate-400">Tornillería y bujías sin barrer roscas</div>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handlePreset("PINES")}
+            className="p-2.5 rounded-xl bg-workshop-dark hover:bg-workshop-cardHover border border-workshop-border text-left transition-all flex items-center gap-2.5 group"
+          >
+            <div className="p-2 rounded-lg bg-purple-500/20 text-purple-300 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+              <FileSearch className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white">Esquema de Pines (Pinout)</div>
+              <div className="text-[11px] text-slate-400">Voltajes de 5V y tierras a ECM</div>
+            </div>
+          </button>
+        </div>
       </div>
 
-      {/* Query Form */}
+      {/* Formulario de Consulta */}
       <form onSubmit={handleSubmit} className="space-y-3">
-        <div className="relative">
+        <div>
           <textarea
             value={customQuery}
             onChange={(e) => setCustomQuery(e.target.value)}
             disabled={isLoading}
             rows={2}
-            className="w-full bg-ground border border-surface-border rounded-lg p-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-bedrock focus:ring-1 focus:ring-bedrock transition-all font-sans resize-none"
-            placeholder="Escribe la consulta técnica o síntoma reportado por el conductor..."
+            className="w-full bg-workshop-dark border-2 border-workshop-border rounded-xl p-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-turbo-cyan focus:ring-1 focus:ring-turbo-cyan font-sans resize-none transition-all shadow-inner"
+            placeholder="Escribe la duda técnica del vehículo o haz clic en uno de los accesos rápidos..."
           />
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="text-xs text-slate-400 font-mono flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-bedrock"></span>
-            <span>Motor RAG: Bedrock Knowledge Base + Claude 3.5 Sonnet</span>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div className="text-xs text-slate-300 font-mono flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-turbo-cyan animate-pulse"></span>
+            <span>Costo de consulta IA en AWS Bedrock: <strong className="text-green-400">~$0.07 MXN</strong> (7 centavos)</span>
           </div>
 
           <button
             type="submit"
             disabled={isLoading || !customQuery.trim()}
-            className="flex items-center gap-2 px-5 py-2 rounded-lg bg-gradient-to-r from-bedrock to-purple-600 hover:from-bedrock-light hover:to-purple-500 text-white font-medium text-xs shadow-md shadow-bedrock/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-turbo-blue via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-blue-500 text-white font-extrabold text-sm shadow-xl shadow-turbo-blue/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
           >
             {isLoading ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Analizando Manuales OEM...</span>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>Consultando Manual con AWS Bedrock...</span>
               </>
             ) : (
               <>
-                <Send className="w-4 h-4" />
-                <span>Consultar Copiloto</span>
+                <Send className="w-5 h-5" />
+                <span>Consultar Copiloto de Taller</span>
               </>
             )}
           </button>
         </div>
       </form>
 
-      {/* Loading Progress State */}
+      {/* Progreso en vivo */}
       {isLoading && (
-        <div className="mt-4 p-3.5 rounded-lg bg-surface-subtle border border-surface-border text-xs font-mono text-slate-300 flex items-center justify-between animate-pulse">
-          <div className="flex items-center gap-2.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
-            <span className="text-cyan-300 font-medium">{loadingStep}</span>
+        <div className="mt-4 p-4 rounded-xl bg-turbo-blue/10 border-2 border-turbo-cyan text-xs font-mono text-white flex items-center justify-between animate-pulse">
+          <div className="flex items-center gap-3">
+            <div className="w-3 h-3 rounded-full bg-turbo-cyan animate-ping" />
+            <span className="font-bold text-turbo-cyan text-sm">{loadingStep}</span>
           </div>
-          <span className="text-slate-500">Recuperando vectores de similitud...</span>
+          <span className="text-slate-400 hidden sm:inline">Indexación en OpenSearch Serverless</span>
         </div>
       )}
-    </div>
+    </section>
   );
 };

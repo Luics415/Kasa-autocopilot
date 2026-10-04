@@ -1,17 +1,31 @@
-import { VehicleProfile, DiagnosticResponse, TorqueSpecification, ManualSourceCitation } from "./types";
+import { VehicleProfile, DiagnosticResponse } from "./types";
 
 export const SAMPLE_VEHICLES: VehicleProfile[] = [
   {
-    id: "veh-ford-f150",
-    vin: "1FTFW1ED4NFA10982",
-    make: "Ford",
-    model: "F-150 EcoBoost 4x4",
+    id: "veh-nissan-versa",
+    vin: "3N1CN8EV9NL109283",
+    make: "Nissan",
+    model: "Versa Sense / Advance (México)",
     year: 2022,
-    engine: "3.5L V6 Twin-Turbo D35",
-    powertrainType: "ICE",
-    mileageKm: 68400,
-    workshopBay: "Bahía 02 (Diagnóstico Powertrain)",
-    commonDTCs: ["P0300", "P0301", "P0299"]
+    engine: "1.6L HR16DE 4 Cilindros (118 HP)",
+    powertrainType: "GASOLINA",
+    mileageKm: 58400,
+    workshopBay: "Bahía 01 (Mecánica Rápida y Afinación)",
+    commonDTCs: ["P0300", "P0301", "P0171"],
+    popularInMexico: true
+  },
+  {
+    id: "veh-vw-jetta",
+    vin: "3VWD17AJ4MM084920",
+    make: "Volkswagen",
+    model: "Jetta Trendline / R-Line (Puebla)",
+    year: 2021,
+    engine: "1.4L TSI Turbo EA211 (150 HP)",
+    powertrainType: "GASOLINA",
+    mileageKm: 64200,
+    workshopBay: "Bahía 03 (Diagnóstico Electrónico)",
+    commonDTCs: ["P0420", "P0299", "P0130"],
+    popularInMexico: true
   },
   {
     id: "veh-toyota-prius",
@@ -19,271 +33,313 @@ export const SAMPLE_VEHICLES: VehicleProfile[] = [
     make: "Toyota",
     model: "Prius Hybrid Synergy Drive",
     year: 2020,
-    engine: "1.8L 2ZR-FXE HEV",
-    powertrainType: "HEV",
-    mileageKm: 94200,
-    workshopBay: "Bahía 05 (Bajo Aislamiento HV / Eléctricos)",
-    commonDTCs: ["P0A80", "P0A0D", "P0AA6"]
+    engine: "1.8L 2ZR-FXE Híbrido (201.6V DC)",
+    powertrainType: "HIBRIDO",
+    mileageKm: 98100,
+    workshopBay: "Bahía 05 (Alta Tensión / Híbridos)",
+    commonDTCs: ["P0A80", "P0A0D", "P0AA6"],
+    popularInMexico: true
   },
   {
-    id: "veh-chevy-silverado",
-    vin: "3GCPCREC5MG198302",
+    id: "veh-chevy-onix",
+    vin: "3G1BE6SM5NG198302",
     make: "Chevrolet",
-    model: "Silverado 1500 High Country",
-    year: 2021,
-    engine: "5.3L EcoTec3 V8 L84",
-    powertrainType: "ICE",
-    mileageKm: 81200,
-    workshopBay: "Bahía 01 (Mecánica Rápida)",
-    commonDTCs: ["P0420", "P0171", "P0521"]
-  },
-  {
-    id: "veh-tesla-model3",
-    vin: "5YJ3E1EB8NF839102",
-    make: "Tesla",
-    model: "Model 3 Long Range AWD",
+    model: "Onix Premier / Tracker Turbo",
     year: 2023,
-    engine: "Dual Motor Permanent Magnet (Front/Rear)",
-    powertrainType: "BEV",
-    mileageKm: 42300,
-    workshopBay: "Bahía 08 (Bahía Alta Tensión Certificada)",
-    commonDTCs: ["BMS_a066", "BMS_f035", "DI_w019"]
+    engine: "1.2L Turbo E-Turbo 3 Cilindros",
+    powertrainType: "GASOLINA",
+    mileageKm: 34500,
+    workshopBay: "Bahía 02 (Sobrealimentación & Turbo)",
+    commonDTCs: ["P0299", "P0521", "P0016"],
+    popularInMexico: true
   },
   {
-    id: "veh-vw-golf",
-    vin: "WVWZZZAUZMP049210",
-    make: "Volkswagen",
-    model: "Golf GTI Performance",
-    year: 2021,
-    engine: "2.0L TSI EA888 Gen 3",
-    powertrainType: "ICE",
-    mileageKm: 51800,
-    workshopBay: "Bahía 03 (Calibración & Turbo)",
-    commonDTCs: ["P0299", "P2015", "P0016"]
+    id: "veh-ford-lobo",
+    vin: "1FTFW1ED4NFA10982",
+    make: "Ford",
+    model: "Lobo / F-150 Lariat 4x4",
+    year: 2022,
+    engine: "3.5L V6 Twin-Turbo EcoBoost D35",
+    powertrainType: "GASOLINA",
+    mileageKm: 74200,
+    workshopBay: "Bahía 04 (Tren Motriz Pesado)",
+    commonDTCs: ["P0301", "P0016", "P0087"],
+    popularInMexico: true
   }
 ];
 
 export const TECHNICAL_KNOWLEDGE_BASE: Record<string, Partial<DiagnosticResponse>> = {
-  // Ford F-150 P0301
+  // Nissan Versa P0301 / P0300
   "P0301": {
-    symptomSummary: "Fallo de encendido detectado en el Cilindro 1 (Misfire). Posible causa: Bobina COP defectuosa, bujía contaminada con carbón/aceite, o inyector de alta presión directo obstruido.",
+    symptomSummary: "Fallo de combustión en Cilindro 1 (Misfire). El motor tiembla en ralentí en semáforos y parpadea el testigo Check Engine. Causa frecuente: Bobina de encendido desvalorizada o bujía de iridio con carbón.",
     diagnosticSteps: [
       {
         stepNumber: 1,
-        title: "Intercambio cruzado de Bobina Coil-on-Plug (COP)",
-        procedure: "Retirar la bobina del Cilindro 1 y permutarla con la bobina del Cilindro 2. Borrar códigos DTC con el escáner y realizar prueba de manejo en ciclo de aceleración a 2,500 RPM.",
-        toolRequired: "Escáner OBD-II / Ford IDS / FDRS, Dado 8mm y matraca 1/4",
-        pinoutOrLocation: "Banco 1 (Lado acompañante), primera bobina frontal",
-        expectedValue: "Si el código migra a P0302, la bobina COP está en corto interno o fuga a masa. Si permanece en P0301, el fallo es en bujía, arnés o inyector.",
-        actionIfOutOfRange: "Reemplazar bobina COP OEM Motorcraft DG-558."
+        title: "Intercambio cruzado de Bobinas de Encendido (Cilindro 1 ↔ Cilindro 2)",
+        procedure: "Retirar el resonador de admisión plástico. Con dado de 10mm, desmontar la bobina del Cilindro 1 y permutarla con la bobina del Cilindro 2. Borrar códigos con escáner y arrancar motor a 2,000 RPM durante 2 minutos.",
+        toolRequired: "Escáner OBD-II (Launch / Autel / Consult), Dado 10mm y matraca 1/4",
+        pinoutOrLocation: "Frente del motor, cilindro más cercano a la banda de accesorios",
+        expectedValue: "Si el código migra a P0302, la bobina Hitachi tiene fuga de chispa interna. Si se queda en P0301, el problema es bujía, compresión o inyector.",
+        actionIfOutOfRange: "Reemplazar bobina de encendido OEM Nissan / Hanshin número de parte 22448-1KT0A."
       },
       {
         stepNumber: 2,
-        title: "Medición de resistencia y voltaje de alimentación de arnés",
-        procedure: "Desconectar conector de bobina C1201. Con switch en ON (KOEO), medir voltaje entre Pin 1 (Alimentación VPWR) y Masa chasis. Medir continuidad entre Pin 2 (Control PCM) y conector PCM C175B Pin 44.",
-        toolRequired: "Multímetro Digital Automotriz CAT III 600V",
-        pinoutOrLocation: "Conector C1201: Pin 1 (Azul/Rojo), Pin 2 (Amarillo/Naranja)",
-        expectedValue: "Voltaje en Pin 1: 11.8V - 12.6V (Voltaje de batería). Resistencia arnés a PCM < 0.5 Ω.",
-        actionIfOutOfRange: "Reparar circuito abierto en arnés motor o revisar fusible F18 (15A) en caja BJB."
+        title: "Comprobación de voltaje de alimentación y tierra en conector de 3 pines",
+        procedure: "Con switch en ON (motor apagado), medir voltaje entre Pin 1 (Alimentación 12V Batería) y masa de motor. Medir continuidad a chasis en Pin 2.",
+        toolRequired: "Multímetro automotriz digital CAT III",
+        pinoutOrLocation: "Conector bobina: Pin 1 (Azul - 12V), Pin 2 (Negro - Tierra), Pin 3 (Señal ECM)",
+        expectedValue: "Pin 1: 12.0V a 12.6V. Pin 2: menos de 0.2 Ω respecto a masa de batería.",
+        actionIfOutOfRange: "Si no hay voltaje, verificar fusible de encendido (15A) en caja IPDM junto a la batería."
       },
       {
         stepNumber: 3,
-        title: "Inspección de bujía de Iridio y calibración de gap",
-        procedure: "Extraer la bujía del cilindro 1. Inspeccionar desgaste de electrodo central, porcelana rota o depósito aceitoso. Calibrar holgura con calibrador de lainas.",
-        toolRequired: "Dado de bujía magnético 5/8 con extensión articulada y calibrador de lainas",
-        pinoutOrLocation: "Cilindro 1 Pozo de bujía",
-        expectedValue: "Calibración recomendada: 0.030 - 0.033 pulgadas (0.75 - 0.85 mm).",
-        actionIfOutOfRange: "Ajustar electrodo de masa o sustituir por bujía Spark Plug OEM CYFS-12Y-PCT."
+        title: "Calibración e inspección de bujía NGK DILKAR7D11H",
+        procedure: "Extraer bujía con dado de 14mm de pared delgada. Verificar si el electrodo de iridio presenta desgaste o rosca empapada de aceite por junta de punterías.",
+        toolRequired: "Dado para bujías 14mm de pared delgada con retén de goma y calibrador de hojas",
+        pinoutOrLocation: "Pozo de bujía Cilindro 1",
+        expectedValue: "Abertura de electrodo nominal: 1.1 mm (0.044 pulgadas).",
+        actionIfOutOfRange: "Reemplazar las 4 bujías por bujías de Iridio originales NGK DILKAR7D11H."
       }
     ],
     torqueSpecs: [
       {
-        id: "trq-f150-spark",
-        component: "Bujía Cilindro 1 a cabeza de cilindros",
-        torqueNm: 15,
-        torqueLbFt: 11,
-        torqueLbIn: 133,
-        notes: "Instalar en rosca fría. No aplicar lubricante ni anti-seize (altera el par de apriete nominal)."
+        id: "trq-versa-bujia",
+        component: "Bujías de encendido en cabeza de aluminio (14mm)",
+        torqueNm: 19.6,
+        torqueLbFt: 14.5,
+        torqueLbIn: 174,
+        notes: "Apretar en frío. No aplicar grasa en las roscas para no falsear el torque nominal."
       },
       {
-        id: "trq-f150-coil",
-        component: "Tornillo de sujeción bobina COP a tapa de punterías",
-        torqueNm: 9,
-        torqueLbFt: 6.6,
-        torqueLbIn: 80,
-        notes: "Apretar firmemente con dado de 8mm sin sobre-apretar el inserto de bronce."
+        id: "trq-versa-bobina",
+        component: "Tornillo de fijación de bobina a tapa de punterías (M6)",
+        torqueNm: 7.0,
+        torqueLbFt: 5.2,
+        torqueLbIn: 62,
+        notes: "No exceder 7 N·m para evitar degollar el inserto roscado plástico."
       }
     ],
     sources: [
       {
-        id: "src-f150-wsm-303",
-        documentTitle: "Ford Workshop Manual F-150 Raptor/3.5L GTDI",
-        oemCode: "WSM-303-07C",
-        section: "Engine Ignition & Misfire Diagnostics",
-        pageNumber: 418,
+        id: "src-nissan-versa-em",
+        documentTitle: "Manual de Taller Oficial Nissan Versa / V-Drive (Chasis N17/N18)",
+        oemCode: "SM20EM-HR16-MEX",
+        section: "Sección EM - Control de Motor y Sistema de Encendido",
+        pageNumber: 342,
         system: "POWERTRAIN",
-        snippet: "Pinpoint Test HC: Coil On Plug (COP) Ignition Diagnosis & Cylinder Balancing Test. Section 303-07C.",
-        relevanceScore: 0.98
-      }
-    ]
-  },
-
-  // Toyota Prius P0A80 & P0A0D (High Voltage)
-  "P0A80": {
-    symptomSummary: "Deterioro en el Paquete de Batería de Tracción Híbrida (HV Battery Pack Deterioration). Diferencia de voltaje superior a 0.3V entre bloques adyacentes de celdas bajo carga.",
-    safetyAlert: {
-      severity: "CRITICAL_HV",
-      title: "ADVERTENCIA DE SEGURIDAD CRÍTICA: ALTO VOLTAJE 201.6V DC NOMINAL",
-      instructions: [
-        "Use obligatoriamente Guantes Aislantes Clase 0 (1,000V) certificados y probados con prueba de aire.",
-        "Desconecte el interruptor del Service Plug Grip (enchufe de servicio) ubicado en la cajuela y guárdelo en su bolsillo antes de tocar cualquier componente del paquete HV.",
-        "Espere un mínimo de 10 MINUTOS para permitir la descarga de los condensadores de alta capacidad del inversor.",
-        "Verifique con multímetro CAT III 1000V que el voltaje en los terminales del inversor sea menor a 1.0V antes de proceder."
-      ],
-      ppeRequired: ["Guantes Aislantes Clase 0 (1,000V)", "Careta de Protección Facial contra Arco Eléctrico", "Botas Dieléctricas de Seguridad"]
-    },
-    diagnosticSteps: [
-      {
-        stepNumber: 1,
-        title: "Lectura de Data List de Bloques de Batería HV (Blocks 1 al 14)",
-        procedure: "Conectar Toyota Techstream. Acceder a 'Hybrid Control / Data List' y graficar 'Battery Block Voltage 01' hasta 'Battery Block Voltage 14' durante aceleración plena con freno pisado (Stall test controlado a 1,500 RPM, máx 5 seg).",
-        toolRequired: "Escáner Toyota Techstream / GTS+",
-        pinoutOrLocation: "Conector OBD-II DLC3 bajo tablero lado conductor",
-        expectedValue: "La variación máxima permitida entre el bloque de mayor voltaje y el de menor voltaje debe ser inferior a 0.25V.",
-        actionIfOutOfRange: "Si un bloque cae por debajo de 13.5V mientras los demás se mantienen en 14.8V, ese módulo de celdas NiMH presenta alta resistencia interna."
-      },
-      {
-        stepNumber: 2,
-        title: "Inspección de barra colectora de cobre (Busbar Corrosion)",
-        procedure: "Retirar cubierta metálica de batería HV con herramienta aislada 1000V. Inspeccionar tuercas de 8mm y pletinas de cobre en busca de sulfatación verdosa/blanquecina.",
-        toolRequired: "Juego de llaves aisladas 1000V VDE y multímetro de micro-ohmios",
-        pinoutOrLocation: "Módulos de batería HV 1 a 28",
-        expectedValue: "Superficies de contacto limpias, resistencia de unión < 0.05 Ω por puente.",
-        actionIfOutOfRange: "Reemplazar arnés de monitoreo de voltaje y barras colectoras OEM Toyota 82165-47040."
-      }
-    ],
-    torqueSpecs: [
-      {
-        id: "trq-prius-busbar",
-        component: "Tuercas de cobre de interconexión de terminales de celda HV (M5)",
-        torqueNm: 5.4,
-        torqueLbFt: 4.0,
-        torqueLbIn: 48,
-        notes: "PRECAUCIÓN: No sobre-apretar. El poste de la celda de níquel es frágil y puede quebrarse si supera los 6.0 Nm."
-      },
-      {
-        id: "trq-prius-cover",
-        component: "Tornillos de cubierta metálica de carcasa de batería",
-        torqueNm: 8.5,
-        torqueLbFt: 6.3,
-        torqueLbIn: 75,
-        notes: "Asegurar el contacto de tierra de la carcasa al chasis para detección de aislamiento."
-      }
-    ],
-    sources: [
-      {
-        id: "src-prius-rm-080",
-        documentTitle: "Toyota Prius Repair Manual - Hybrid System Diagnosis",
-        oemCode: "RM34D0U",
-        section: "Hybrid / Battery Control System / DTC P0A80",
-        pageNumber: 284,
-        system: "ELECTRICAL_HV",
-        snippet: "Precaution for High Voltage Inspection & Battery Smart Unit DTC P0A80-123 Logic.",
+        snippet: "Procedimiento de prueba de bobinas de encendido con transistor de potencia integrado y tabla de torques de cabeza HR16DE.",
         relevanceScore: 0.99
       }
     ]
   },
 
-  // Chevrolet Silverado P0420
+  // Volkswagen Jetta P0420
   "P0420": {
-    symptomSummary: "Eficiencia del Convertidor Catalítico por debajo del umbral (Banco 1). La capacidad de almacenamiento de oxígeno del sustrato cerámico está degradada.",
+    symptomSummary: "Eficiencia del Convertidor Catalítico por debajo del límite permisible (Banco 1). La computadora del motor detecta que el catalizador no retiene suficiente oxígeno.",
     diagnosticSteps: [
       {
         stepNumber: 1,
-        title: "Monitoreo de ondas de Sensor O2 Upstream (Sensor 1) vs Downstream (Sensor 2)",
-        procedure: "Calentar motor a temperatura normal de operación (ECT > 85°C). Mantener a 2,000 RPM constantes y observar gráfica de voltaje en el escáner.",
-        toolRequired: "Escáner GM GDS2 / MDI o multímetro con función gráfica",
-        pinoutOrLocation: "Escape Banco 1 antes y después del convertidor catalítico",
-        expectedValue: "Sensor 1 debe conmutar rápidamente entre 0.1V y 0.9V (1-3 Hz). Sensor 2 debe permanecer casi plano y estable entre 0.6V y 0.75V.",
-        actionIfOutOfRange: "Si Sensor 2 oscila en espejo idéntico al Sensor 1, el catalizador ha perdido capacidad de almacenamiento catalítico."
+        title: "Monitoreo en vivo de Sensor de Oxígeno Pre-catalizador (B1S1) vs Post-catalizador (B1S2)",
+        procedure: "Conectar escáner VAG / VCDS. Conducir hasta que el refrigerante alcance 90°C. Mantener motor a 2,200 RPM estables y observar canal de datos.",
+        toolRequired: "Escáner VCDS (VAG-COM), ODIS o escáner multimarcas con gráfica en vivo",
+        pinoutOrLocation: "Escape tras el turbocargador antes y después de la petaca catalítica",
+        expectedValue: "Sensor 1 (Banda ancha) debe oscilar rápidamente. Sensor 2 debe permanecer casi plano y estable entre 0.65V y 0.75V.",
+        actionIfOutOfRange: "Si el Sensor 2 copia las oscilaciones del Sensor 1 en espejo, el catalizador ha perdido su recubrimiento de metales preciosos."
       },
       {
         stepNumber: 2,
-        title: "Comprobación de fugas de escape antes del sensor O2",
-        procedure: "Conectar máquina de humo al tubo de escape o inspeccionar juntas de múltiple de escape Banco 1 en busca de hollín negro.",
-        toolRequired: "Detector de fugas de humo y estetoscopio mecánico",
-        pinoutOrLocation: "Junta de múltiple de escape a cabeza y brida de bajada",
-        expectedValue: "Cero fugas de escape ni entrada parásita de aire frío.",
-        actionIfOutOfRange: "Reemplazar junta de escape metálica multicapa antes de condenar el catalizador."
+        title: "Detección de fugas de gases en flexible y abrazadera de bajada de turbo",
+        procedure: "Inspeccionar con detector de humo o agua jabonosa la unión entre la salida de la caracola de escape y el tubo flexible.",
+        toolRequired: "Lámpara de inspección y máquina generadora de humo",
+        pinoutOrLocation: "Abrazadera V-Band de salida de turbo EA211",
+        expectedValue: "Cero presencia de hollín negro ni soplido audible en juntas.",
+        actionIfOutOfRange: "Cambiar abrazadera y junta metálica cónica OEM VW 1K0-253-115-T antes de cambiar el catalizador."
       }
     ],
     torqueSpecs: [
       {
-        id: "trq-chevy-o2",
-        component: "Sensor de Oxígeno calefactado (O2) en tubo de escape",
-        torqueNm: 42,
-        torqueLbFt: 31,
-        torqueLbIn: 372,
-        notes: "Aplicar pasta anti-adherente de alta temperatura en las roscas evitando contaminar la punta del sensor."
+        id: "trq-jetta-o2",
+        component: "Sensor Lambda post-catalizador (Llave 22mm ranurada)",
+        torqueNm: 50,
+        torqueLbFt: 36.8,
+        notes: "Aplicar pasta cerámica lubricante exclusivamente en la rosca sin tocar la cápsula sensora."
+      },
+      {
+        id: "trq-jetta-vband",
+        component: "Abrazadera V-Band bajada de turbo a catalizador",
+        torqueNm: 25,
+        torqueLbFt: 18.4,
+        notes: "Alinear correctamente el labio cónico antes de apretar."
       }
     ],
     sources: [
       {
-        id: "src-chevy-gmt-p0420",
-        documentTitle: "GM Service Information Silverado 1500 V8 Powertrain",
-        oemCode: "GMSI-DOC-54219",
-        section: "Engine Exhaust / Catalytic Converter Diagnostics",
-        pageNumber: 156,
+        id: "src-vw-jetta-erwin",
+        documentTitle: "Volkswagen erWin Manual de Reparaciones - Jetta Sedán 1.4 TSI",
+        oemCode: "VW-ERWIN-JETTA7-EA211",
+        section: "Sistema de Escape y Depuración de Gases de Escape",
+        pageNumber: 189,
         system: "EMISSIONS",
-        snippet: "DTC P0420 or P0430 Diagnostic Procedure & Three-Way Converter Efficiency Evaluation.",
-        relevanceScore: 0.96
+        snippet: "Comprobación del envejecimiento de sondas lambda y diagnóstico de eficiencia catalítica P0420.",
+        relevanceScore: 0.98
       }
     ]
   },
 
-  // Volkswagen Golf TSI P0299 (Turbo underboost)
-  "P0299": {
-    symptomSummary: "Presión de sobrealimentación de turbo insuficiente (Underboost). Presión especificada por ECM no alcanzada en colector de admisión.",
+  // Toyota Prius P0A80 (Alta Tensión)
+  "P0A80": {
+    symptomSummary: "Deterioro en el Paquete de Batería de Tracción Híbrida (HV Battery Pack). Diferencia de voltaje superior a 0.3V entre bloques de celdas bajo aceleración.",
+    safetyAlert: {
+      severity: "CRITICAL_HV",
+      title: "PELIGRO DE MUERTE: CIRCUITO DE ALTO VOLTAJE 201.6V CORRIENTE DIRECTA (DC)",
+      instructions: [
+        "Use obligatoriamente Guantes Dieléctricos Clase 0 (certificados a 1,000V) con guantes de protección mecánica de cuero encima.",
+        "Retire la clavija de servicio (Service Plug Grip) ubicada en la cajuela, gírela 90° y guárdela en su bolsillo para evitar reconexiones accidentales.",
+        "Espere OBLIGATORIAMENTE 10 MINUTOS para que los condensadores del inversor se descarguen por completo.",
+        "Mida con multímetro CAT III 1,000V en los bornes del inversor. Verifique que el voltaje sea MENOR A 1.0 VOLT antes de tocar cualquier cable naranja."
+      ],
+      ppeRequired: ["Guantes Dieléctricos Clase 0 (1,000V)", "Careta Facial contra Arco Eléctrico", "Botas Dieléctricas de Casco No Metálico"]
+    },
     diagnosticSteps: [
       {
         stepNumber: 1,
-        title: "Inspección de válvula de recirculación / desahogo Diverter Valve (N249)",
-        procedure: "Desmontar la electroválvula de recirculación montada directamente en la caracola compresora del turbocargador IHI IS20. Inspeccionar diafragma de goma o pistón de teflón.",
-        toolRequired: "Llave Allen 5mm o Torx T30",
-        pinoutOrLocation: "Caracola compresora de turbo, parte trasera baja del vano motor",
-        expectedValue: "Diafragma sin rasgaduras ni fugas de presión; el pistón debe retornar con suavidad por resorte.",
-        actionIfOutOfRange: "Instalar versión actualizada de pistón reforzado OEM VW 06H-145-710-D."
+        title: "Lectura de bloques de batería 01 al 14 con Techstream",
+        procedure: "Ingresar a 'Hybrid Control / Data List'. Monitorear 'Battery Block 01 Voltage' hasta 'Block 14 Voltage' mientras se aplica prueba de calado (freno pisado y acelerador a fondo en directa durante 5 seg máx).",
+        toolRequired: "Escáner Toyota Techstream / GTS+ o Autel MaxiSys Elite",
+        pinoutOrLocation: "Conector OBD-II bajo el volante a la izquierda",
+        expectedValue: "La diferencia de voltaje entre el bloque más alto y el más bajo no debe superar 0.25V.",
+        actionIfOutOfRange: "Identificar el bloque desbalanceado (usualmente bloques centrales 6 al 9 por sobrecalentamiento de ventilador)."
       },
       {
         stepNumber: 2,
-        title: "Prueba de estanqueidad de circuito de aire comprimido (Boost Leak Smoke Test)",
-        procedure: "Adaptar tapón de prueba en tubo de entrada de turbo. Presurizar el sistema de admisión a 10 PSI con humo.",
-        toolRequired: "Máquina de humo con regulador de presión",
-        pinoutOrLocation: "Mangueras de intercooler frontal y cuerpo de aceleración",
-        expectedValue: "El circuito debe mantener 10 PSI durante al menos 30 segundos sin silbidos ni fuga de humo.",
-        actionIfOutOfRange: "Apretar abrazaderas de acople o sustituir manguera agrietada de intercooler."
+        title: "Inspección de corrosión en pletinas de cobre de interconexión (Busbars)",
+        procedure: "Con clavija desconectada y EPP puesto, desmontar la tapa superior. Revisar si las tuercas de 8mm tienen sulfato blanco o verde que falsea la lectura del BMS.",
+        toolRequired: "Juego de dados y matracas aisladas 1,000V VDE",
+        pinoutOrLocation: "Regleta lateral de módulos de batería NiMH",
+        expectedValue: "Superficies de cobre brillantes, resistencia de contacto menor a 0.05 Ω.",
+        actionIfOutOfRange: "Limpiar o sustituir el arnés de sensores de voltaje OEM Toyota 82165-47040."
       }
     ],
     torqueSpecs: [
       {
-        id: "trq-vw-diverter",
-        component: "Tornillos de fijación de válvula desahogo N249 a turbocargador (3 tornillos)",
-        torqueNm: 7,
-        torqueLbFt: 5.2,
-        torqueLbIn: 62,
-        notes: "Cuerpo de aleación de aluminio. Apretar en patrón triangular parejo."
+        id: "trq-prius-tuercas",
+        component: "Tuercas de cobre terminales de celda de batería (M5)",
+        torqueNm: 5.4,
+        torqueLbFt: 4.0,
+        torqueLbIn: 48,
+        notes: "PRECAUCIÓN EXTREMA: El vástago roscado de la celda de níquel es frágil. Si se pasa de 6 N·m, se romperá la celda."
+      },
+      {
+        id: "trq-prius-tapa",
+        component: "Tornillos de cubierta metálica de paquete HV a chasis",
+        torqueNm: 8.5,
+        torqueLbFt: 6.3,
+        torqueLbIn: 75,
+        notes: "Garantiza la masa para el detector de fugas de aislamiento del vehículo."
       }
     ],
     sources: [
       {
-        id: "src-vw-erwin-turbo",
-        documentTitle: "Volkswagen erWin Workshop Repair Manual - 2.0L TSI EA888 Gen 3",
-        oemCode: "VW-ERWIN-A005GTI",
-        section: "Turbocharging / Intercooling System",
-        pageNumber: 312,
+        id: "src-toyota-prius-rm",
+        documentTitle: "Manual de Taller Toyota Prius HSD - Sistema Híbrido",
+        oemCode: "RM34D0U-MEX",
+        section: "Diagnóstico de Batería de Tracción y Códigos DTC P0A80 / P0A0D",
+        pageNumber: 284,
+        system: "ELECTRICAL_HV",
+        snippet: "Medidas de seguridad en alto voltaje y procedimiento de reemplazo de celdas en paquete de tracción.",
+        relevanceScore: 0.99
+      }
+    ]
+  },
+
+  // Chevrolet Onix Turbo P0299
+  "P0299": {
+    symptomSummary: "Baja presión de sobrealimentación de turbocargador (Underboost). El motor pierde potencia en subidas o rebases y enciende el testigo de falla.",
+    diagnosticSteps: [
+      {
+        stepNumber: 1,
+        title: "Prueba de estanqueidad en tuberías y enfriador de aire (Intercooler)",
+        procedure: "Adaptar tapón de prueba con manómetro en la entrada del turbo. Presurizar el sistema a 12 PSI con máquina de humo.",
+        toolRequired: "Generador de humo automotriz y manómetro de baja presión (0-30 PSI)",
+        pinoutOrLocation: "Mangueras de intercooler detrás de la fascia delantera",
+        expectedValue: "La presión debe mantenerse estable por 30 segundos sin fugas audibles ni escape de humo.",
+        actionIfOutOfRange: "Apretar abrazaderas o cambiar manguera de intercooler fisurada."
+      },
+      {
+        stepNumber: 2,
+        title: "Comprobación de solenoide de válvula Wastegate y actuador de vacío",
+        procedure: "Conectar bomba de vacío manual al pulmón del turbo. Aplicar 15 inHg de vacío.",
+        toolRequired: "Bomba de vacío manual Mityvac con manómetro",
+        pinoutOrLocation: "Pulmón actuador wastegate sobre la caracola de escape",
+        expectedValue: "La varilla debe desplazarse 8 a 10 mm con suavidad y sostener el vacío sin caer.",
+        actionIfOutOfRange: "Reemplazar válvula solenoide de control de presión de turbo OEM GM 55574902."
+      }
+    ],
+    torqueSpecs: [
+      {
+        id: "trq-onix-turbo",
+        component: "Tornillos de fijación de líneas de aceite y refrigerante a turbo",
+        torqueNm: 10,
+        torqueLbFt: 7.4,
+        notes: "Usar siempre arandelas de cobre nuevas para evitar fugas de aceite hacia el escape."
+      }
+    ],
+    sources: [
+      {
+        id: "src-gm-onix-turbo",
+        documentTitle: "Información de Servicio Chevrolet Onix / Tracker Turbo",
+        oemCode: "GMSI-DOC-ONIX-MEX",
+        section: "Motor 1.2L E-Turbo - Sistema de Inducción de Aire",
+        pageNumber: 215,
         system: "POWERTRAIN",
-        snippet: "Checking Charge Pressure Control and Wastegate Actuator Mechanical Linkage.",
+        snippet: "Árbol de diagnóstico para DTC P0299 y calibración de varilla de compuerta de alivio.",
         relevanceScore: 0.97
+      }
+    ]
+  },
+
+  // Ford Lobo P0016
+  "P0016": {
+    symptomSummary: "Desfase en la correlación de posición de árbol de levas y cigüeñal (Banco 1, Sensor A). Ruido de cascabeleo o traqueteo al encender en frío por estiramiento de cadena de distribución.",
+    diagnosticSteps: [
+      {
+        stepNumber: 1,
+        title: "Lectura de ángulo de avance VCT con osciloscopio o escáner FDRS",
+        procedure: "Conectar canales de osciloscopio a sensor CKP (cigüeñal) y sensor CMP (árbol de levas admisión Banco 1). Comparar los pulsos del diente de referencia.",
+        toolRequired: "Osciloscopio automotriz de 2 o 4 canales / Escáner Ford FDRS",
+        pinoutOrLocation: "Sensores CMP en la parte trasera de las tapas de punterías",
+        expectedValue: "El diente de sincronización debe coincidir con una tolerancia menor a ±3° con motor caliente en ralentí.",
+        actionIfOutOfRange: "Si el desfase supera 6°, la cadena de distribución principal presenta elongación o el engrane variador VCT no traba en reposo."
+      },
+      {
+        stepNumber: 2,
+        title: "Inspección de presión de aceite del motor en filtro de solenoide VCT",
+        procedure: "Roscar manómetro mecánico en el puerto de presión de la cabeza de cilindros. Medir presión con aceite a 90°C.",
+        toolRequired: "Manómetro de presión de aceite hidráulico 0-100 PSI",
+        pinoutOrLocation: "Galería de lubricación principal del bloque motor",
+        expectedValue: "Mínimo 15 PSI en ralentí y 30-45 PSI a 2,000 RPM.",
+        actionIfOutOfRange: "Si la presión es baja, revisar coladera de bomba de aceite obstruida por restos de silicón o lodos."
+      }
+    ],
+    torqueSpecs: [
+      {
+        id: "trq-ford-vct",
+        component: "Tornillos de engrane variador de árbol de levas VCT",
+        torqueNm: 40,
+        torqueLbFt: 29.5,
+        notes: "Paso 1: 40 N·m. Paso 2: Apretar 90 grados adicionales con goniómetro de ángulo."
+      }
+    ],
+    sources: [
+      {
+        id: "src-ford-lobo-wsm",
+        documentTitle: "Manual de Taller Ford Lobo / F-150 3.5L EcoBoost",
+        oemCode: "WSM-303-01D-MEX",
+        section: "Mecanismo de Distribución y Sistema de Avance Variable VCT",
+        pageNumber: 512,
+        system: "POWERTRAIN",
+        snippet: "Prueba de correlación CKP-CMP y procedimiento de reemplazo del kit de cadena y tensores hidráulicos.",
+        relevanceScore: 0.98
       }
     ]
   }

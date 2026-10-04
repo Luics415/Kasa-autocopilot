@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Cpu, ShieldCheck, Database, Layers, ExternalLink, Sparkles, BookOpen } from "lucide-react";
+import { Wrench, ShieldCheck, Database, Layers, ExternalLink, Sparkles, BookOpen, DollarSign } from "lucide-react";
 
 interface HeaderProps {
   onOpenPortfolio: () => void;
@@ -15,79 +15,77 @@ export const Header: React.FC<HeaderProps> = ({
   activeMode
 }) => {
   return (
-    <header className="border-b border-surface-border bg-surface-subtle/80 backdrop-blur-md sticky top-0 z-40 px-4 lg:px-8 py-3.5 transition-all">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Brand / Title */}
+    <header className="border-b-2 border-workshop-border bg-workshop-card/95 backdrop-blur-md sticky top-0 z-40 px-4 lg:px-8 py-3.5 shadow-xl">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Marca y Propósito Inmediato */}
         <div className="flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-bedrock to-aws-orange/90 flex items-center justify-center shadow-lg shadow-bedrock/20 border border-purple-400/30">
-            <Cpu className="w-5 h-5 text-white" />
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-turbo-blue to-mechanic-orange flex items-center justify-center shadow-lg shadow-turbo-blue/30 border-2 border-white/20">
+            <Wrench className="w-6 h-6 text-white" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-mono font-bold tracking-tight text-lg text-white">
-                KASA <span className="text-bedrock-light">AutoCopilot</span>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="font-extrabold text-xl tracking-tight text-white font-sans">
+                KASA <span className="text-turbo-cyan">AutoCopilot</span>
               </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono tracking-wider bg-bedrock/20 text-purple-300 border border-bedrock/40">
-                <Sparkles className="w-2.5 h-2.5 text-bedrock-light" />
-                BEDROCK RAG
+              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-green-500/20 text-green-300 border border-green-500/40 flex items-center gap-1">
+                🇲🇽 Precios en Pesos ($ MXN)
+              </span>
+              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-bedrock-purple/30 text-purple-200 border border-bedrock-purple/50">
+                AWS Bedrock RAG
               </span>
             </div>
-            <p className="text-xs text-slate-400 font-mono hidden sm:block">
-              Copiloto de Taller Mecánico con IA Generativa · Manuales OEM Certificados
+            <p className="text-xs text-slate-300 font-medium">
+              El Copiloto IA de Taller Mecánico · Diagnósticos certeros con manuales de agencia
             </p>
           </div>
         </div>
 
-        {/* Status Indicators & Navigation */}
+        {/* Acciones Rápidas */}
         <div className="flex items-center flex-wrap gap-2.5">
-          {/* Engine Status Badge */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-raised border border-surface-border text-xs font-mono">
+          {/* Indicador de Motor */}
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-workshop-dark border border-workshop-border text-xs font-mono">
             <span
-              className={`w-2 h-2 rounded-full ${
+              className={`w-2.5 h-2.5 rounded-full ${
                 activeMode === "LIVE_AWS_BEDROCK"
-                  ? "bg-emerald-400 animate-pulse"
-                  : "bg-cyan-400"
+                  ? "bg-mechanic-green animate-pulse"
+                  : "bg-turbo-cyan"
               }`}
             />
-            <span className="text-slate-300">
-              {activeMode === "LIVE_AWS_BEDROCK" ? "AWS Bedrock Live" : "Local RAG Mode"}
-            </span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded bg-surface-border text-slate-400">
-              Claude 3.5 Sonnet
+            <span className="text-slate-200 font-semibold">
+              {activeMode === "LIVE_AWS_BEDROCK" ? "AWS Bedrock Live" : "Simulador Local Activo"}
             </span>
           </div>
 
-          {/* Manuals Library Button */}
+          {/* Botón de Manuales */}
           <button
             onClick={onOpenManuals}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-raised hover:bg-surface-hover border border-surface-border text-xs font-medium text-slate-300 transition-colors"
-            title="Ver catálogo de manuales OEM indexados"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-workshop-card hover:bg-workshop-cardHover border border-workshop-border text-xs font-semibold text-slate-200 hover:text-white transition-all shadow-sm"
           >
-            <BookOpen className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="hidden md:inline">Manuales OEM</span>
-            <span className="text-[10px] bg-cyan-950/60 text-cyan-300 px-1.5 py-0.5 rounded border border-cyan-800/40">
-              142 Doc
+            <BookOpen className="w-4 h-4 text-turbo-cyan" />
+            <span>Biblioteca Manuales</span>
+            <span className="bg-turbo-blue/40 text-cyan-200 px-1.5 py-0.5 rounded text-[10px] font-bold">
+              142 OEM
             </span>
           </button>
 
-          {/* Portfolio & Architecture Showcase Button */}
+          {/* Botón de Arquitectura y Portafolio */}
           <button
             onClick={onOpenPortfolio}
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-bedrock-dark/80 to-purple-900/80 hover:from-bedrock hover:to-purple-700 border border-purple-500/40 text-xs font-semibold text-white shadow-md shadow-purple-950/50 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-bedrock-purple to-purple-800 hover:from-purple-600 hover:to-purple-700 text-white font-bold text-xs shadow-lg shadow-purple-900/40 border border-purple-400/40 transition-all hover:scale-105 active:scale-95"
           >
-            <Layers className="w-3.5 h-3.5 text-purple-200" />
-            <span>Arquitectura & Portfolio</span>
+            <Layers className="w-4 h-4" />
+            <span>Arquitectura AWS & ROI ($ MXN)</span>
           </button>
 
-          {/* GitHub link */}
+          {/* Enlace GitHub */}
           <a
             href="https://github.com/Luics415/Kasa-autocopilot"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-raised hover:bg-surface-hover border border-surface-border text-xs text-slate-400 hover:text-white transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-workshop-card hover:bg-workshop-cardHover border border-workshop-border text-xs font-semibold text-slate-300 hover:text-white transition-colors"
           >
             <ExternalLink className="w-3.5 h-3.5" />
-            <span className="hidden lg:inline">GitHub</span>
+            <span className="hidden sm:inline">GitHub</span>
           </a>
         </div>
       </div>

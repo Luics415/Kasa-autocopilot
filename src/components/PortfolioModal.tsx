@@ -7,14 +7,12 @@ import {
   Cpu,
   Database,
   ShieldCheck,
-  Zap,
   TrendingUp,
   FileCode,
-  CheckCircle2,
+  Server,
+  DollarSign,
   ExternalLink,
-  ChevronRight,
-  Sparkles,
-  Server
+  CheckCircle2
 } from "lucide-react";
 
 interface PortfolioModalProps {
@@ -33,224 +31,210 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
-      <div className="bg-surface-raised border border-surface-border rounded-2xl w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-        {/* Top Header */}
-        <div className="p-5 border-b border-surface-border flex items-center justify-between bg-surface-subtle">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-bedrock to-purple-800 flex items-center justify-center text-white shadow-lg shadow-bedrock/30 border border-purple-400/40">
-              <Layers className="w-5 h-5" />
+      <div className="bg-workshop-card border-2 border-workshop-border rounded-3xl w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+        {/* Cabecera */}
+        <div className="p-6 border-b-2 border-workshop-border flex items-center justify-between bg-workshop-dark">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-bedrock-purple to-indigo-700 flex items-center justify-center text-white shadow-xl shadow-purple-900/40 border-2 border-white/20">
+              <Layers className="w-6 h-6" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-base font-bold text-white font-mono">
-                  Kasa AutoCopilot — Portafolio & Arquitectura Cloud
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-lg font-extrabold text-white font-sans">
+                  Kasa AutoCopilot — Arquitectura AWS & Caso de Negocio ($ MXN)
                 </h2>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                  AWS BEDROCK RAG
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-500/20 text-green-300 border border-green-500/40">
+                  🇲🇽 Precios en Pesos Mexicanos
                 </span>
               </div>
-              <p className="text-xs text-slate-400 font-mono">
-                Arquitectura de Solución Enterprise para Diagnóstico Automotriz de Alta Precisión
+              <p className="text-xs text-slate-300 font-sans mt-0.5">
+                Solución Cloud para Talleres Mecánicos y Agencias en México utilizando Amazon Bedrock y RAG
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-surface-hover text-slate-400 hover:text-white transition-colors"
+            className="p-2 rounded-xl hover:bg-workshop-cardHover text-slate-400 hover:text-white transition-colors border border-workshop-border"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="px-5 border-b border-surface-border bg-surface-inset flex items-center gap-2 overflow-x-auto text-xs font-mono">
+        {/* Pestañas de Navegación */}
+        <div className="px-6 border-b-2 border-workshop-border bg-workshop-dark/60 flex items-center gap-3 overflow-x-auto text-xs font-mono">
           <button
             onClick={() => setActiveTab("ARCHITECTURE")}
-            className={`py-3 px-3.5 border-b-2 font-medium transition-colors flex items-center gap-2 ${
+            className={`py-3.5 px-4 border-b-2 font-bold transition-all flex items-center gap-2 ${
               activeTab === "ARCHITECTURE"
-                ? "border-bedrock text-purple-300"
-                : "border-transparent text-slate-400 hover:text-slate-200"
+                ? "border-turbo-cyan text-turbo-cyan bg-turbo-blue/10"
+                : "border-transparent text-slate-400 hover:text-white"
             }`}
           >
-            <Server className="w-4 h-4 text-cyan-400" />
+            <Server className="w-4 h-4" />
             <span>1. Arquitectura AWS</span>
           </button>
           <button
             onClick={() => setActiveTab("RAG_STRATEGY")}
-            className={`py-3 px-3.5 border-b-2 font-medium transition-colors flex items-center gap-2 ${
+            className={`py-3.5 px-4 border-b-2 font-bold transition-all flex items-center gap-2 ${
               activeTab === "RAG_STRATEGY"
-                ? "border-bedrock text-purple-300"
-                : "border-transparent text-slate-400 hover:text-slate-200"
+                ? "border-turbo-cyan text-turbo-cyan bg-turbo-blue/10"
+                : "border-transparent text-slate-400 hover:text-white"
             }`}
           >
-            <Database className="w-4 h-4 text-purple-400" />
-            <span>2. Estrategia RAG Automotriz</span>
+            <Database className="w-4 h-4" />
+            <span>2. RAG Automotriz vs Naive</span>
           </button>
           <button
             onClick={() => setActiveTab("FINOPS")}
-            className={`py-3 px-3.5 border-b-2 font-medium transition-colors flex items-center gap-2 ${
+            className={`py-3.5 px-4 border-b-2 font-bold transition-all flex items-center gap-2 ${
               activeTab === "FINOPS"
-                ? "border-bedrock text-purple-300"
-                : "border-transparent text-slate-400 hover:text-slate-200"
+                ? "border-turbo-cyan text-turbo-cyan bg-turbo-blue/10"
+                : "border-transparent text-slate-400 hover:text-white"
             }`}
           >
-            <TrendingUp className="w-4 h-4 text-emerald-400" />
-            <span>3. Métricas FinOps & ROI</span>
+            <TrendingUp className="w-4 h-4" />
+            <span>3. Métricas Financieras ($ MXN)</span>
           </button>
           <button
             onClick={() => setActiveTab("IAC")}
-            className={`py-3 px-3.5 border-b-2 font-medium transition-colors flex items-center gap-2 ${
+            className={`py-3.5 px-4 border-b-2 font-bold transition-all flex items-center gap-2 ${
               activeTab === "IAC"
-                ? "border-bedrock text-purple-300"
-                : "border-transparent text-slate-400 hover:text-slate-200"
+                ? "border-turbo-cyan text-turbo-cyan bg-turbo-blue/10"
+                : "border-transparent text-slate-400 hover:text-white"
             }`}
           >
-            <FileCode className="w-4 h-4 text-amber-400" />
-            <span>4. Terraform / IaC</span>
+            <FileCode className="w-4 h-4" />
+            <span>4. Terraform (IaC)</span>
           </button>
         </div>
 
-        {/* Tab Body */}
+        {/* Contenido de la Pestaña */}
         <div className="p-6 overflow-y-auto flex-1 space-y-6">
-          {/* TAB 1: ARCHITECTURE */}
+          {/* TAB 1: ARQUITECTURA */}
           {activeTab === "ARCHITECTURE" && (
             <div className="space-y-6">
-              {/* Executive Summary */}
-              <div className="p-4 rounded-xl bg-surface-subtle border border-surface-border text-xs leading-relaxed text-slate-300 space-y-2">
-                <span className="font-mono text-cyan-400 font-bold uppercase tracking-wider block">
-                  Resumen Ejecutivo para Entrevistas y Portafolio
+              <div className="p-5 rounded-2xl bg-workshop-dark border-2 border-workshop-border text-xs leading-relaxed text-slate-200 space-y-2.5">
+                <span className="font-mono text-turbo-cyan font-bold uppercase tracking-wider block text-sm">
+                  ¿Qué problema resuelve Kasa AutoCopilot en un taller o agencia?
                 </span>
-                <p>
-                  <strong>Kasa AutoCopilot</strong> aborda el desafío crítico de los talleres de concesionario: la complejidad de manuales técnicos OEM de 5,000 páginas y el riesgo de diagnósticos erróneos en vehículos de combustión, híbridos y eléctricos (HEV/BEV).
+                <p className="text-slate-300">
+                  En los talleres mecánicos y agencias automotrices en México (Nissan, Volkswagen, Ford, Toyota, etc.), los manuales oficiales de servicio tienen entre <strong>3,000 y 6,000 páginas</strong> en PDF.
                 </p>
-                <p>
-                  Implementa una arquitectura serverless en <strong>Amazon Web Services (AWS)</strong> utilizando <strong>Amazon Bedrock Knowledge Bases</strong> con <strong>OpenSearch Serverless</strong> para búsqueda vectorial semántica, <strong>Claude 3.5 Sonnet</strong> para razonamiento técnico riguroso, y <strong>Bedrock Guardrails</strong> para cumplimiento de protocolos de seguridad en alta tensión (300V-800V).
+                <p className="text-slate-300">
+                  Un mecánico calificado pierde entre <strong>35 y 50 minutos</strong> buscando el valor de resistencia de un sensor, el orden de apriete de tornillos de cabeza o los voltajes de 5V de computadora. Además, en autos híbridos (como el Toyota Prius), manipular cables naranjas sin saber el procedimiento de descarga puede ser mortal.
+                </p>
+                <p className="text-slate-300">
+                  <strong>Kasa AutoCopilot</strong> utiliza <strong>Amazon Bedrock (Claude 3.5 Sonnet)</strong> y <strong>RAG con OpenSearch Serverless</strong> para entregar al técnico los pasos exactos de comprobación con multímetro, los torques en N·m y advertencias de seguridad en menos de 500 milisegundos.
                 </p>
               </div>
 
-              {/* Interactive Architecture Flow Cards */}
+              {/* Tarjetas interactivas de nodos AWS */}
               <div>
                 <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-3">
-                  Flujo de Datos e Infraestructura AWS (Haz clic en un componente para detalles)
+                  Infraestructura Cloud en AWS (Haz clic en cada bloque para inspeccionarlo):
                 </h4>
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs font-mono">
-                  {/* S3 + Textract */}
                   <button
                     onClick={() => setSelectedNode("ingestion")}
-                    className={`p-3.5 rounded-xl border text-left transition-all ${
+                    className={`p-4 rounded-xl border-2 text-left transition-all ${
                       selectedNode === "ingestion"
-                        ? "bg-purple-950/40 border-bedrock shadow-md ring-1 ring-bedrock"
-                        : "bg-surface-subtle border-surface-border hover:bg-surface-hover"
+                        ? "bg-turbo-blue/20 border-turbo-cyan shadow-lg"
+                        : "bg-workshop-dark border-workshop-border hover:bg-workshop-cardHover"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-amber-400 font-bold">1. Ingesta S3</span>
-                      <Database className="w-4 h-4 text-amber-400" />
-                    </div>
-                    <div className="font-bold text-white mt-1">S3 + AWS Textract</div>
-                    <p className="text-[11px] text-slate-400 mt-1">
-                      Extracción tabular de pares de apriete y diagramas eléctricos sin perder estructura.
+                    <div className="text-amber-400 font-extrabold">1. Manuales S3</div>
+                    <div className="font-bold text-white text-sm mt-1">S3 + AWS Textract</div>
+                    <p className="text-[11px] text-slate-300 mt-1">
+                      Extracción de tablas de torques y diagramas eléctricos sin desfasar datos.
                     </p>
                   </button>
 
-                  {/* Bedrock KB & OpenSearch */}
                   <button
                     onClick={() => setSelectedNode("vectordb")}
-                    className={`p-3.5 rounded-xl border text-left transition-all ${
+                    className={`p-4 rounded-xl border-2 text-left transition-all ${
                       selectedNode === "vectordb"
-                        ? "bg-purple-950/40 border-bedrock shadow-md ring-1 ring-bedrock"
-                        : "bg-surface-subtle border-surface-border hover:bg-surface-hover"
+                        ? "bg-turbo-blue/20 border-turbo-cyan shadow-lg"
+                        : "bg-workshop-dark border-workshop-border hover:bg-workshop-cardHover"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-cyan-400 font-bold">2. Vector Search</span>
-                      <Server className="w-4 h-4 text-cyan-400" />
-                    </div>
-                    <div className="font-bold text-white mt-1">Bedrock KB + OpenSearch</div>
-                    <p className="text-[11px] text-slate-400 mt-1">
-                      Titan Embeddings G1 con chunking jerárquico por Sistema $\rightarrow$ DTC $\rightarrow$ Página.
+                    <div className="text-turbo-cyan font-extrabold">2. Vector Search</div>
+                    <div className="font-bold text-white text-sm mt-1">OpenSearch Serverless</div>
+                    <p className="text-[11px] text-slate-300 mt-1">
+                      Titan Embeddings V1 con chunking jerárquico por Sistema y Código DTC.
                     </p>
                   </button>
 
-                  {/* Bedrock Claude 3.5 */}
                   <button
                     onClick={() => setSelectedNode("bedrock")}
-                    className={`p-3.5 rounded-xl border text-left transition-all ${
+                    className={`p-4 rounded-xl border-2 text-left transition-all ${
                       selectedNode === "bedrock"
-                        ? "bg-purple-950/40 border-bedrock shadow-md ring-1 ring-bedrock"
-                        : "bg-surface-subtle border-surface-border hover:bg-surface-hover"
+                        ? "bg-turbo-blue/20 border-turbo-cyan shadow-lg"
+                        : "bg-workshop-dark border-workshop-border hover:bg-workshop-cardHover"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-purple-300 font-bold">3. LLM Reasoning</span>
-                      <Cpu className="w-4 h-4 text-purple-300" />
-                    </div>
-                    <div className="font-bold text-white mt-1">Claude 3.5 Sonnet</div>
-                    <p className="text-[11px] text-slate-400 mt-1">
-                      Inferencia estructurada en JSON con citas de manuales OEM y cero alucinaciones.
+                    <div className="text-purple-300 font-extrabold">3. Razonamiento IA</div>
+                    <div className="font-bold text-white text-sm mt-1">Claude 3.5 Sonnet</div>
+                    <p className="text-[11px] text-slate-300 mt-1">
+                      Generación de pruebas de multímetro en JSON estricto con citas de página.
                     </p>
                   </button>
 
-                  {/* Guardrails & Safety */}
                   <button
                     onClick={() => setSelectedNode("guardrails")}
-                    className={`p-3.5 rounded-xl border text-left transition-all ${
+                    className={`p-4 rounded-xl border-2 text-left transition-all ${
                       selectedNode === "guardrails"
-                        ? "bg-purple-950/40 border-bedrock shadow-md ring-1 ring-bedrock"
-                        : "bg-surface-subtle border-surface-border hover:bg-surface-hover"
+                        ? "bg-turbo-blue/20 border-turbo-cyan shadow-lg"
+                        : "bg-workshop-dark border-workshop-border hover:bg-workshop-cardHover"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-emerald-400 font-bold">4. Guardrails</span>
-                      <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                    </div>
-                    <div className="font-bold text-white mt-1">Bedrock Guardrails</div>
-                    <p className="text-[11px] text-slate-400 mt-1">
-                      Filtros mandatorios de seguridad para alto voltaje y enmascaramiento de PII.
+                    <div className="text-green-400 font-extrabold">4. Seguridad Vida</div>
+                    <div className="font-bold text-white text-sm mt-1">Bedrock Guardrails</div>
+                    <p className="text-[11px] text-slate-300 mt-1">
+                      Protocolo obligatorio de alto voltaje (200V-800V) y EPP dieléctrico.
                     </p>
                   </button>
                 </div>
 
-                {/* Node Detail Box */}
-                <div className="mt-4 p-4 rounded-xl bg-surface-inset border border-surface-border text-xs font-mono">
+                {/* Detalle del nodo seleccionado */}
+                <div className="mt-4 p-5 rounded-2xl bg-workshop-dark border-2 border-workshop-border text-xs font-sans leading-relaxed">
                   {selectedNode === "bedrock" && (
                     <div className="space-y-1.5">
-                      <div className="text-purple-300 font-bold flex items-center gap-1.5">
-                        <Cpu className="w-4 h-4" /> Detalle: Inferencia con Anthropic Claude 3.5 Sonnet en Bedrock
+                      <div className="text-purple-300 font-extrabold text-sm flex items-center gap-2">
+                        <Cpu className="w-5 h-5 text-purple-400" /> Inferencia con Anthropic Claude 3.5 Sonnet en Amazon Bedrock
                       </div>
-                      <p className="text-slate-300 leading-relaxed">
-                        Seleccionado por su capacidad sobresaliente de razonamiento determinístico y generación de JSON estricto sin alucinaciones. A diferencia de APIs públicas, Amazon Bedrock garantiza que los datos de telemetría y diagnósticos nunca se utilizan para reentrenar modelos fundacionales.
+                      <p className="text-slate-200">
+                        Elegido por su altísima precisión en razonamiento técnico y generación de JSON estructurado sin inventar valores. Además, <strong>Amazon Bedrock garantiza privacidad absoluta</strong>: las consultas y datos de los talleres nunca se comparten con terceros ni se usan para entrenar modelos públicos.
                       </p>
                     </div>
                   )}
                   {selectedNode === "ingestion" && (
                     <div className="space-y-1.5">
-                      <div className="text-amber-400 font-bold flex items-center gap-1.5">
-                        <Database className="w-4 h-4" /> Detalle: AWS Textract + S3 Bucket
+                      <div className="text-amber-400 font-extrabold text-sm flex items-center gap-2">
+                        <Database className="w-5 h-5" /> AWS Textract para Tablas Automotrices
                       </div>
-                      <p className="text-slate-300 leading-relaxed">
-                        Los manuales automotrices tienen formatos de doble columna con diagramas de pines y tablas de torques. AWS Textract analiza las relaciones espaciales (LAYOUT & TABLES), evitando que las tablas de pares de apriete se conviertan en texto desordenado ininteligible.
+                      <p className="text-slate-200">
+                        Los manuales de taller tienen tablas complejas de torques con pasos angulares. Un OCR común mezcla los valores de cabeza con los de cárter. AWS Textract procesa la geometría y tablas para preservar exactamente cada fila.
                       </p>
                     </div>
                   )}
                   {selectedNode === "vectordb" && (
                     <div className="space-y-1.5">
-                      <div className="text-cyan-400 font-bold flex items-center gap-1.5">
-                        <Server className="w-4 h-4" /> Detalle: Amazon OpenSearch Serverless
+                      <div className="text-turbo-cyan font-extrabold text-sm flex items-center gap-2">
+                        <Server className="w-5 h-5" /> Amazon OpenSearch Serverless + Titan Embeddings
                       </div>
-                      <p className="text-slate-300 leading-relaxed">
-                        Indexación vectorial mediante Amazon Titan Text Embeddings V1 (1,536 dimensiones). Permite búsquedas híbridas (kNN vectorial + filtros de metadatos por VIN, fabricante, año y código DTC).
+                      <p className="text-slate-200">
+                        Índice vectorial totalmente administrado sin servidores fijos que pagar. Permite búsquedas híbridas (semántica vectorial + filtros por VIN, marca, año y DTC) con latencias menores a 350 milisegundos.
                       </p>
                     </div>
                   )}
                   {selectedNode === "guardrails" && (
                     <div className="space-y-1.5">
-                      <div className="text-emerald-400 font-bold flex items-center gap-1.5">
-                        <ShieldCheck className="w-4 h-4" /> Detalle: Amazon Bedrock Guardrails Automotrices
+                      <div className="text-green-400 font-extrabold text-sm flex items-center gap-2">
+                        <ShieldCheck className="w-5 h-5" /> Amazon Bedrock Guardrails para Protección del Mecánico
                       </div>
-                      <p className="text-slate-300 leading-relaxed">
-                        Aplica políticas contextuales obligatorias: si la consulta involucra vehículos híbridos o eléctricos (HEV/BEV), el guardrail inyecta automáticamente el protocolo de descarga de capacitores y verificación de EPP dieléctrico antes de autorizar cualquier paso de medición.
+                      <p className="text-slate-200">
+                        Si el auto es híbrido o eléctrico, el Guardrail intercepta la respuesta para exigir el uso de Guantes Dieléctricos Clase 0 (1,000V) y la desconexión del Service Plug antes de permitir cualquier medición con multímetro.
                       </p>
                     </div>
                   )}
@@ -262,46 +246,46 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({
           {/* TAB 2: RAG STRATEGY */}
           {activeTab === "RAG_STRATEGY" && (
             <div className="space-y-4">
-              <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
-                Comparativa: RAG Genérico vs. RAG Especializado de Kasa AutoCopilot
+              <h4 className="text-sm font-bold text-white uppercase font-mono">
+                Diferenciador Técnico: RAG Naive vs. RAG Especializado de Kasa AutoCopilot
               </h4>
 
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs font-mono border border-surface-border rounded-lg overflow-hidden">
-                  <thead className="bg-surface-subtle text-slate-400 border-b border-surface-border">
+              <div className="overflow-x-auto rounded-xl border-2 border-workshop-border">
+                <table className="w-full text-left text-xs font-mono">
+                  <thead className="bg-workshop-dark text-slate-300 border-b-2 border-workshop-border">
                     <tr>
-                      <th className="p-3 font-semibold">Dimensión Técnica</th>
-                      <th className="p-3 font-semibold text-red-300">RAG Genérico / Naive</th>
-                      <th className="p-3 font-semibold text-emerald-300">Kasa AutoCopilot (AWS Bedrock)</th>
+                      <th className="p-3.5 font-bold">Aspecto Técnico</th>
+                      <th className="p-3.5 font-bold text-red-300">RAG Genérico (ChatGPT / Naive)</th>
+                      <th className="p-3.5 font-bold text-emerald-300">Kasa AutoCopilot (AWS Bedrock)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-surface-border text-slate-300">
+                  <tbody className="divide-y divide-workshop-border bg-workshop-card text-slate-200">
                     <tr>
-                      <td className="p-3 font-bold text-white">Estrategia de Chunking</td>
-                      <td className="p-3 text-slate-400">Chunks fijos de 500 palabras cortando oraciones y tablas.</td>
-                      <td className="p-3 text-emerald-200">
-                        Chunking jerárquico por Sistema $\rightarrow$ Código DTC $\rightarrow$ Procedimiento OEM.
+                      <td className="p-3.5 font-bold text-white">Segmentación (Chunking)</td>
+                      <td className="p-3.5 text-slate-400">Cortes ciegos cada 500 palabras rompiendo oraciones.</td>
+                      <td className="p-3.5 text-emerald-200 font-semibold">
+                        Partición por Sistema $\rightarrow$ Código DTC $\rightarrow$ Procedimiento OEM.
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3 font-bold text-white">Extracción de Tablas</td>
-                      <td className="p-3 text-slate-400">OCR plano que mezcla filas de torques de cabeza y bancada.</td>
-                      <td className="p-3 text-emerald-200">
-                        AWS Textract Table Extraction respetando unidades (Nm, lb-ft) y secuencias.
+                      <td className="p-3.5 font-bold text-white">Tablas de Torques</td>
+                      <td className="p-3.5 text-slate-400">Texto plano desordenado que confunde tornillos.</td>
+                      <td className="p-3.5 text-emerald-200 font-semibold">
+                        AWS Textract Tables respetando N·m, lb-ft y secuencias de apriete.
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3 font-bold text-white">Seguridad en Alto Voltaje</td>
-                      <td className="p-3 text-slate-400">Omite advertencias si el usuario no las pregunta explícitamente.</td>
-                      <td className="p-3 text-emerald-200">
-                        Bedrock Guardrails forzados: EPP y desconexión de Service Plug obligatoria.
+                      <td className="p-3.5 font-bold text-white">Seguridad Alto Voltaje</td>
+                      <td className="p-3.5 text-slate-400">Ignora advertencias si no se le piden explícitamente.</td>
+                      <td className="p-3.5 text-emerald-200 font-semibold">
+                        Bedrock Guardrails obligatorios con lista de EPP dieléctrico.
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3 font-bold text-white">Verificabilidad de Fuentes</td>
-                      <td className="p-3 text-slate-400">Texto libre sin referencia o con citas inventadas.</td>
-                      <td className="p-3 text-emerald-200">
-                        Citas directas con Código OEM, Sección, Número de Página y Snippet real.
+                      <td className="p-3.5 font-bold text-white">Verificabilidad</td>
+                      <td className="p-3.5 text-slate-400">Respuestas sin respaldo o fuentes inventadas.</td>
+                      <td className="p-3.5 text-emerald-200 font-semibold">
+                        Citas con Código OEM, Página de manual y porcentaje de coincidencia.
                       </td>
                     </tr>
                   </tbody>
@@ -312,40 +296,40 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({
 
           {/* TAB 3: FINOPS */}
           {activeTab === "FINOPS" && (
-            <div className="space-y-4">
-              <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
-                Modelo Financiero y Retorno de Inversión (ROI) en Taller
+            <div className="space-y-5">
+              <h4 className="text-sm font-bold text-white uppercase font-mono">
+                Modelo Financiero y Ahorro en Pesos Mexicanos (MXN)
               </h4>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
-                <div className="p-4 rounded-xl bg-surface-subtle border border-surface-border space-y-2">
-                  <div className="text-purple-300 font-bold">Costo Unitario en AWS Bedrock</div>
-                  <div className="text-2xl font-bold text-white">$0.0034 <span className="text-xs text-slate-400">USD / query</span></div>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Basado en 950 tokens de entrada ($0.0028) + 640 tokens de salida ($0.0096) prorrateados con Claude 3.5 Sonnet.
+                <div className="p-5 rounded-2xl bg-workshop-dark border-2 border-purple-500/50 space-y-2">
+                  <div className="text-purple-300 font-extrabold text-sm">Costo en AWS Bedrock</div>
+                  <div className="text-3xl font-black text-white">$0.07 <span className="text-sm text-purple-300">MXN</span></div>
+                  <p className="text-slate-300 text-xs leading-relaxed">
+                    Aproximadamente <strong>7 centavos de peso mexicano</strong> por consulta (1,500 tokens con Claude 3.5 Sonnet).
                   </p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-surface-subtle border border-surface-border space-y-2">
-                  <div className="text-emerald-300 font-bold">Ahorro en Horas Técnico</div>
-                  <div className="text-2xl font-bold text-white">~39 min <span className="text-xs text-slate-400">($61.75 USD)</span></div>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Un maestro mecánico factura $95 USD/h. Ahorrar 39 min de búsqueda en manuales equivale a $61.75 USD por orden.
+                <div className="p-5 rounded-2xl bg-workshop-dark border-2 border-green-500/50 space-y-2">
+                  <div className="text-green-300 font-extrabold text-sm">Ahorro en Mano de Obra</div>
+                  <div className="text-3xl font-black text-white">$552.50 <span className="text-sm text-green-300">MXN</span></div>
+                  <p className="text-slate-300 text-xs leading-relaxed">
+                    Ahorro de ~39 minutos de investigación técnica a una tarifa de <strong>$850 MXN / hora</strong>.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-surface-subtle border border-surface-border space-y-2">
-                  <div className="text-cyan-300 font-bold">Ahorro en Garantías / Piezas</div>
-                  <div className="text-2xl font-bold text-white">$320.00 <span className="text-xs text-slate-400">USD / caso</span></div>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Evita sustituciones innecesarias de catalizadores o sensores provocadas por diagnósticos por tanteo.
+                <div className="p-5 rounded-2xl bg-workshop-dark border-2 border-green-500/50 space-y-2">
+                  <div className="text-green-300 font-extrabold text-sm">Refacción Evitada</div>
+                  <div className="text-3xl font-black text-white">$5,800.00 <span className="text-sm text-green-300">MXN</span></div>
+                  <p className="text-slate-300 text-xs leading-relaxed">
+                    Evita que el mecánico cambie una pieza cara por adivinanza (ej. sensor O2 de agencia, bobina original o catalizador).
                   </p>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-700/40 text-xs font-mono text-emerald-200">
-                <strong className="text-emerald-300 block mb-1">Métrica Clave para Presentación Ejecutiva:</strong>
-                Por cada <strong>$1.00 USD</strong> invertido en inferencia y base vectorial en Amazon Bedrock, el taller recupera un estimado de <strong>$11,200.00 USD</strong> en productividad operativa y reducción de pérdidas por garantías.
+              <div className="p-5 rounded-2xl bg-green-950/40 border-2 border-green-400 text-sm font-sans text-green-100 shadow-xl">
+                <strong className="text-green-300 font-bold block mb-1 text-base">Conclusión de Negocio:</strong>
+                Por cada <strong>$1.00 Peso Mexicano</strong> invertido en procesamiento de IA en Amazon Bedrock, el taller mecánico en México recupera un estimado de <strong>+$90,000 Pesos Mexicanos</strong> en ahorro de horas de taller y piezas no reemplazadas erróneamente.
               </div>
             </div>
           )}
@@ -353,14 +337,14 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({
           {/* TAB 4: IAC */}
           {activeTab === "IAC" && (
             <div className="space-y-4">
-              <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
-                Infraestructura como Código (Terraform)
+              <h4 className="text-sm font-bold text-white uppercase font-mono">
+                Infraestructura como Código con Terraform
               </h4>
-              <p className="text-xs text-slate-300 font-mono">
-                La infraestructura completa está codificada en Terraform dentro de la carpeta <code className="text-amber-300">/terraform</code> para despliegue automatizado en cualquier región de AWS.
+              <p className="text-xs text-slate-300">
+                Todo el ecosistema de AWS (S3, Bedrock Knowledge Base, OpenSearch Serverless y DynamoDB) está empaquetado en la carpeta <code className="text-amber-300 font-mono">/terraform</code> para replicar en cualquier cuenta de AWS en minutos.
               </p>
 
-              <pre className="p-4 rounded-xl bg-surface-inset border border-surface-border text-[11px] font-mono text-slate-300 overflow-x-auto">
+              <pre className="p-4 rounded-xl bg-workshop-dark border-2 border-workshop-border text-xs font-mono text-slate-200 overflow-x-auto">
 {`# terraform/bedrock_knowledge_base.tf
 resource "aws_bedrockagent_knowledge_base" "workshop_kb" {
   name     = "kasa-autocopilot-workshop-kb"
@@ -378,11 +362,6 @@ resource "aws_bedrockagent_knowledge_base" "workshop_kb" {
     opensearch_serverless_configuration {
       collection_arn    = aws_opensearchserverless_collection.kb_collection.arn
       vector_index_name = "workshop-manuals-index"
-      field_mapping {
-        vector_field   = "manual_vector"
-        text_field     = "raw_text_content"
-        metadata_field = "oem_metadata"
-      }
     }
   }
 }`}
@@ -391,29 +370,27 @@ resource "aws_bedrockagent_knowledge_base" "workshop_kb" {
           )}
         </div>
 
-        {/* Footer */}
-        <div className="p-4 border-t border-surface-border bg-surface-subtle flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+        {/* Pie de modal */}
+        <div className="p-5 border-t-2 border-workshop-border bg-workshop-dark flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
           <div className="flex items-center gap-2 text-slate-400">
-            <span>Repositorio:</span>
+            <span>Repositorio oficial:</span>
             <a
               href="https://github.com/Luics415/Kasa-autocopilot"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cyan-400 hover:underline flex items-center gap-1 font-bold"
+              className="text-turbo-cyan hover:underline flex items-center gap-1 font-bold"
             >
               github.com/Luics415/Kasa-autocopilot
-              <ExternalLink className="w-3 h-3" />
+              <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-surface-hover hover:bg-slate-700 text-white font-medium transition-colors"
-            >
-              Volver a la Consola
-            </button>
-          </div>
+          <button
+            onClick={onClose}
+            className="px-5 py-2 rounded-xl bg-workshop-card hover:bg-workshop-cardHover text-white font-bold transition-all border border-workshop-border"
+          >
+            Volver a la Consola
+          </button>
         </div>
       </div>
     </div>
